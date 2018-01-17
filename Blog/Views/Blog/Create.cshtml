@@ -1,0 +1,71 @@
+﻿@model Entity.Models.Article
+
+@{
+    ViewBag.Title = "Yeni Blog Oluştur.";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form_main">
+                <h4 class="heading"><strong>Yeni </strong> Makale <span></span></h4>
+                <div class="form">
+                    @using (Html.BeginForm("Create", "Blog", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal col-md-12", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                @Html.ValidationSummary()
+                            </div>
+                        }
+
+                        @*<form action="contact_send_mail.php" method="post" id="contactFrm" name="contactFrm">*@
+                        @Html.TextBoxFor(x => x.Title, new { @class = "txt", @placeholder = "Başlık", @required = "required" })
+                        
+                        @Html.TextBoxFor(x => x.Description, new { @class = "txt", @placeholder = "Tanım", @required = "required" })
+
+                        @Html.TextBoxFor(x => x.YouTubeLink, new { @class = "txt", @placeholder = "YouTube Linki"})
+                        @Html.TextBoxFor(x => x.Tags, new { @class = "txt", @placeholder = "etiket1, etiket2, etiket3" })
+
+                        @Html.TextAreaFor(x => x.Content, new { @class = "txt", @placeholder = "İçerik", @required = "required", @id="Content" })
+                       
+                        <div>Resim 1
+                            <input type="file" name="Resim" />
+                    </div>
+                        <br/>
+                        <div>Resim 2
+                            <input type="file" name="Resim2" />
+                    </div>
+                        <br/>
+                        <div>Resim 3
+                            <input type="file" name="Resim3" />
+                    </div>
+                        
+                        <input type="submit" value="Gonder" name="submit" class="txt2">
+                        @*</form>*@
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('Content');
+</script>
+}
+
+<script>
+    $(function () {
+        $('.required-icon').tooltip({
+            placement: 'left',
+            title: 'Required field'
+        });
+    });
+
+</script>
